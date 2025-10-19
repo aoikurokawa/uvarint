@@ -7,4 +7,7 @@ pub enum UVarintError {
 
     #[error("Overflow")]
     Overflow,
+
+    #[error("BufferTooSmall")]
+    BufferTooSmall,
 }
