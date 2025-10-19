@@ -1,6 +1,9 @@
 [package]
 name = "uvarint"
 version = "0.1.0"
+license = "Apache-2.0"
+description = "unsigned varint"
+readme = "README.md"
 edition = "2024"
 
 [dependencies]
