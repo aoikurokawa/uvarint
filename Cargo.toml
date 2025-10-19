@@ -1,22 +1,6 @@
-[workspace]
-members = [
-	"operator_history_core",
-	"operator_history_program",
-	"operator_history_sdk"
-]
+[package]
+name = "uvarint"
+version = "0.1.0"
+edition = "2024"
 
-resolver = "2"
-
-[workspace.dependencies]
-borsh = { version = "0.10.3" }
-bytemuck = { version = "1.16.3", features = ["min_const_generics"] }
-const_str_to_pubkey = "0.1.1"
-jito-account-traits-derive = { git = "https://github.com/jito-foundation/restaking.git", version = "0.0.3" }
-jito-bytemuck = { git = "https://github.com/jito-foundation/restaking.git", version = "0.0.3" }
-jito-jsm-core = { git = "https://github.com/jito-foundation/restaking.git", version = "0.0.3" }
-operator-history-core = { path = "operator_history_core", version = "0.0.1" }
-operator-history-program = { path = "operator_history_program", version = "0.0.1" }
-operator-history-sdk = { path = "operator_history_sdk", version = "0.0.1" }
-shank = "0.4.2"
-solana-program = "~1.18"
-thiserror = "1.0.57"
+[dependencies]
