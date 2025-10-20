@@ -1,4 +1,4 @@
-# UNSIGNED_VARINT
+# UVARINT
 
 Core Features
 Encoding/Decoding:
@@ -7,13 +7,6 @@ Encode u32, u64, u128 to varint bytes
 Decode varint bytes back to integers
 Handle both owned (Vec<u8>) and borrowed (&[u8]) data
 Return number of bytes written/read
-
-Error Handling:
-
-Detect buffer overflow (not enough space to encode)
-Detect truncated data (incomplete varint)
-Detect overflow (varint too large for target type)
-Clear error types, not just Result<T, ()>
 
 Zero-Copy Operations:
 
