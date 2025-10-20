@@ -134,7 +134,6 @@ pub trait ReadVarintExt: Read + Sized {
     }
 }
 
-// Implement for all types that implement Read
 impl<R: Read> ReadVarintExt for R {}
 
 /// Extension trait for writing varints to `Write` types
@@ -160,7 +159,6 @@ pub trait WriteVarintExt: Write + Sized {
     }
 }
 
-// Implement for all types that implement Write
 impl<W: Write> WriteVarintExt for W {}
 
 #[cfg(test)]
@@ -258,7 +256,7 @@ mod tests {
 
     #[test]
     fn test_read_incomplete() {
-        let data = vec![0x80]; // Continuation bit set, but no more data
+        let data = vec![0x80];
         let mut cursor = Cursor::new(data);
 
         assert!(matches!(
