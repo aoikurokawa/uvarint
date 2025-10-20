@@ -18,17 +18,17 @@ use crate::error::UVarintError;
 ///
 /// // Simple case: 1 byte
 /// // 5 = 0b0000_0101 -> [0b0000_0101] (MSB=0, so done)
-/// assert_eq!(decode_u64(&[0x05]).unwrap(), 5);
+/// assert_eq!(decode_u64(&[0x05]).unwrap(), (1, 5));
 ///
 /// // Two bytes: 300
 /// // 300 = 0b1_0010_1100 (needs 9 bits)
 /// // Split into 7-bit chunks: [010_1100] [0000_010]
 /// // Reverse order & add continuation bits: [1010_1100] [0000_0010]
-/// assert_eq!(decode_u64(&[0xAC, 0x02]).unwrap(), 300);
+/// assert_eq!(decode_u64(&[0xAC, 0x02]).unwrap(), (2, 300));
 ///
 /// // Maximum u64 value requires 10 bytes
 /// let max_bytes = vec![0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x01];
-/// assert_eq!(decode_u64(&max_bytes).unwrap(), u64::MAX);
+/// assert_eq!(decode_u64(&max_bytes).unwrap(), (10, u64::MAX));
 /// ```
 ///
 /// # Step-by-Step Decoding Process
@@ -55,7 +55,7 @@ use crate::error::UVarintError;
 /// continuation = 0x02 & 0x80
 ///              = 0 (MSB is 0, done!)
 /// ```
-pub fn decode_u64(data: &[u8]) -> Result<u64, UVarintError> {
+pub fn decode_u64(data: &[u8]) -> Result<(usize, u64), UVarintError> {
     let mut value: u64 = 0;
 
     for (i, &byte) in data.iter().take(10).enumerate() {
@@ -70,7 +70,7 @@ pub fn decode_u64(data: &[u8]) -> Result<u64, UVarintError> {
             .ok_or(UVarintError::Overflow)?;
 
         if (byte & 0x80) == 0 {
-            return Ok(value);
+            return Ok((i + 1, value));
         }
     }
 
@@ -83,10 +83,10 @@ mod tests {
 
     #[test]
     fn test_single_byte_values() {
-        assert_eq!(decode_u64(&[0x00]).unwrap(), 0);
-        assert_eq!(decode_u64(&[0x01]).unwrap(), 1);
-        assert_eq!(decode_u64(&[0x05]).unwrap(), 5);
-        assert_eq!(decode_u64(&[0x7F]).unwrap(), 127); // Max single byte
+        assert_eq!(decode_u64(&[0x00]).unwrap(), (1, 0));
+        assert_eq!(decode_u64(&[0x01]).unwrap(), (1, 1));
+        assert_eq!(decode_u64(&[0x05]).unwrap(), (1, 5));
+        assert_eq!(decode_u64(&[0x7F]).unwrap(), (1, 127)); // Max single byte
     }
 
     #[test]
@@ -94,16 +94,16 @@ mod tests {
         // 128 = 0b1000_0000
         // Split: [000_0000] [000_0001]
         // Encode: [1000_0000] [0000_0001]
-        assert_eq!(decode_u64(&[0x80, 0x01]).unwrap(), 128);
+        assert_eq!(decode_u64(&[0x80, 0x01]).unwrap(), (2, 128));
 
         // 300 = 0b1_0010_1100
         // Split: [010_1100] [000_0010]
         // Encode: [1010_1100] [0000_0010]
-        assert_eq!(decode_u64(&[0xAC, 0x02]).unwrap(), 300);
+        assert_eq!(decode_u64(&[0xAC, 0x02]).unwrap(), (2, 300));
 
         // 16,383 = 0b11_1111_1111_1111 (max 2-byte value)
         // Split: [111_1111] [111_1111]
         // Encode: [1111_1111] [0111_1111]
-        assert_eq!(decode_u64(&[0xFF, 0x7F]).unwrap(), 16_383);
+        assert_eq!(decode_u64(&[0xFF, 0x7F]).unwrap(), (2, 16_383));
     }
 }
