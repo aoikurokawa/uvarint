@@ -353,7 +353,7 @@ mod encode_tests {
 
     #[test]
     fn test_encode_u16_step_by_step() {
-        let mut value = 300_u32;
+        let mut value = 300_u16;
         let mut result = Vec::new();
 
         let mut byte = (value & 0x7F) as u8;
@@ -376,7 +376,7 @@ mod encode_tests {
         result.push(byte);
 
         assert_eq!(result, vec![0xAC, 0x02]);
-        assert_eq!(encode_u32(300), vec![0xAC, 0x02]);
+        assert_eq!(encode_u16(300), vec![0xAC, 0x02]);
     }
 
     #[test]
