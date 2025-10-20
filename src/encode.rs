@@ -13,7 +13,7 @@ use crate::error::UVarintError;
 /// # Examples
 ///
 /// ```
-/// use uvarint::encode::encode_u32;
+/// use uvarint::encode_u32;
 ///
 /// // 300 = 0b1_0010_1100
 /// // Byte 1: bits 0-6 = 0b010_1100 (44), MSB=1 → 0b1010_1100
@@ -69,7 +69,7 @@ pub fn encode_u32(mut value: u32) -> Vec<u8> {
 /// # Examples
 ///
 /// ```
-/// use uvarint::encode::encode_u32_into;
+/// use uvarint::encode_u32_into;
 ///
 /// let mut buf = [0u8; 10];
 /// let n = encode_u32_into(300, &mut buf).unwrap();
@@ -121,7 +121,7 @@ pub fn encode_u32_into(mut value: u32, buf: &mut [u8]) -> Result<usize, UVarintE
 /// # Examples
 ///
 /// ```
-/// use uvarint::encode::encode_u64;
+/// use uvarint::encode_u64;
 ///
 /// // 300 = 0b1_0010_1100
 /// // Byte 1: bits 0-6 = 0b010_1100 (44), MSB=1 → 0b1010_1100
@@ -182,7 +182,7 @@ pub fn encode_u64(mut value: u64) -> Vec<u8> {
 /// # Examples
 ///
 /// ```
-/// use uvarint::encode::encode_u64_into;
+/// use uvarint::encode_u64_into;
 ///
 /// let mut buf = [0u8; 10];
 /// let n = encode_u64_into(300, &mut buf).unwrap();
@@ -238,7 +238,7 @@ pub fn encode_u64_into(mut value: u64, buf: &mut [u8]) -> Result<usize, UVarintE
 /// # Examples
 ///
 /// ```
-/// use uvarint::encode::encode_u128;
+/// use uvarint::encode_u128;
 ///
 /// assert_eq!(encode_u128(300), vec![0xAC, 0x02]);
 /// ```
@@ -270,7 +270,7 @@ pub fn encode_u128(mut value: u128) -> Vec<u8> {
 /// # Examples
 ///
 /// ```
-/// use uvarint::encode::encode_u128_into;
+/// use uvarint::encode_u128_into;
 ///
 /// let mut buf = [0u8; 10];
 /// let n = encode_u128_into(300, &mut buf).unwrap();

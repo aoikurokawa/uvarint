@@ -14,7 +14,7 @@ use crate::error::UVarintError;
 /// # Examples
 ///
 /// ```
-/// use uvarint::decode::decode_u32;
+/// use uvarint::decode_u32;
 ///
 /// // Two bytes: 300
 /// // 300 = 0b1_0010_1100 (needs 9 bits)
@@ -83,7 +83,7 @@ pub fn decode_u32(data: &[u8]) -> Result<(usize, u32), UVarintError> {
 /// # Examples
 ///
 /// ```
-/// use uvarint::decode::decode_u64;
+/// use uvarint::decode_u64;
 ///
 /// // Two bytes: 300
 /// // 300 = 0b1_0010_1100 (needs 9 bits)
@@ -152,7 +152,7 @@ pub fn decode_u64(data: &[u8]) -> Result<(usize, u64), UVarintError> {
 /// # Examples
 ///
 /// ```
-/// use uvarint::decode::decode_u128;
+/// use uvarint::decode_u128;
 ///
 /// // Two bytes: 300
 /// // 300 = 0b1_0010_1100 (needs 9 bits)
