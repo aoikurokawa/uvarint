@@ -57,3 +57,7 @@ Comprehensive examples in docs
 Comparison guide with other libraries
 Migration guide if competing with existing crates
 Clear performance characteristics documented
+
+## Resources
+
+- https://techoverflow.net/2013/01/25/efficiently-encoding-variable-length-integers-in-cc/

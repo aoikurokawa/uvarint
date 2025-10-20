@@ -50,7 +50,7 @@ use crate::error::UVarintError;
 pub fn decode_u32(data: &[u8]) -> Result<(usize, u32), UVarintError> {
     let mut value: u32 = 0;
 
-    for (i, &byte) in data.iter().take(10).enumerate() {
+    for (i, &byte) in data.iter().take(5).enumerate() {
         let data_bits = (byte & 0x7F) as u32;
 
         value = value
