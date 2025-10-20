@@ -1,13 +1,5 @@
 # UVARINT
 
-Core Features
-Encoding/Decoding:
-
-Encode u32, u64, u128 to varint bytes
-Decode varint bytes back to integers
-Handle both owned (Vec<u8>) and borrowed (&[u8]) data
-Return number of bytes written/read
-
 Zero-Copy Operations:
 
 Read from byte slices without allocation
