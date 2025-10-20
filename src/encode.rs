@@ -327,13 +327,8 @@ mod encode_tests {
 
     #[test]
     fn test_encode_u32_two_bytes() {
-        // 128 = minimum 2-byte value
         assert_eq!(encode_u32(128), vec![0x80, 0x01]);
-
-        // 300
         assert_eq!(encode_u32(300), vec![0xAC, 0x02]);
-
-        // 16,383 = maximum 2-byte value
         assert_eq!(encode_u32(16_383), vec![0xFF, 0x7F]);
     }
 
@@ -394,7 +389,6 @@ mod encode_tests {
 
     #[test]
     fn test_encode_u64_step_by_step_300() {
-        // Let's manually trace encoding 300
         let mut value = 300_u64;
         let mut result = Vec::new();
 
@@ -452,8 +446,7 @@ mod encode_tests {
 
     #[test]
     fn test_encode_u128_step_by_step_300() {
-        // Let's manually trace encoding 300
-        let mut value = 300_u64;
+        let mut value = 300_u128;
         let mut result = Vec::new();
 
         // Step 1: value = 300 = 0b1_0010_1100

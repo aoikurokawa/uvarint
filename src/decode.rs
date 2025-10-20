@@ -163,7 +163,7 @@ pub fn decode_u64(data: &[u8]) -> Result<(usize, u64), UVarintError> {
 pub fn decode_u128(data: &[u8]) -> Result<(usize, u128), UVarintError> {
     let mut value: u128 = 0;
 
-    for (i, &byte) in data.iter().take(16).enumerate() {
+    for (i, &byte) in data.iter().take(19).enumerate() {
         let data_bits = (byte & 0x7F) as u128;
 
         value = value
